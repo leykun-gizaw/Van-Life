@@ -17,8 +17,8 @@ export default function Vans() {
   } else {
     const vanElements = vansList.map((van) => {
       return (
-        <Link to={`${van.id}`}>
-          <div className="flex flex-col gap-2" key={van.id}>
+        <Link to={`${van.id}`} key={van.id}>
+          <div className="flex flex-col gap-2">
             <img src={van.imageUrl} width={"300px"} className="rounded-lg" />
             <div className="flex justify-between">
               <h2 className="text-xl font-semibold">{van.name}</h2>
