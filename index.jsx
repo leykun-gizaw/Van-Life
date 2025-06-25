@@ -9,11 +9,13 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <BrowserRouter>
-      <Header />
       <main className="flex-1">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<Header />}>
+            <Route index element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/vans" element={<h1>Vans page here</h1>} />
+          </Route>
         </Routes>
       </main>
       <Footer />
