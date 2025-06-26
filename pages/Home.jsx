@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import homeImg from "../assets/images/home-hero.png";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
       </div>
       <div className="h-[600px] overflow-hidden">
         <img
-          src="../assets/images/home-hero.png"
+          src={homeImg}
           alt="home-hero"
           className="rounded-lg object-cover w-full h-full"
         />
