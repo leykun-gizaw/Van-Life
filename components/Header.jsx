@@ -8,8 +8,9 @@ export default function Header() {
           #VANLIFE
         </Link>
         <nav className="flex gap-4">
-          <Link to="/about">About</Link>
-          <Link to="/vans">Vans</Link>
+          <Link to="host">Host</Link>
+          <Link to="about">About</Link>
+          <Link to="vans">Vans</Link>
         </nav>
       </header>
       <Outlet />
