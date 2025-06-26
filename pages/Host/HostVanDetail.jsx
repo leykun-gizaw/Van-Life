@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import chooseTypeColor from "../../utils/helpers";
 
 export default function HostVanDetail() {
@@ -21,7 +21,7 @@ export default function HostVanDetail() {
       <Link to=".." relative="path">
         ← Back to all vans
       </Link>
-      <div className="p-[40px] flex flex-col gap-9 bg-white">
+      <div className="p-[40px] flex flex-col gap-9 bg-white max-w-[1000px]">
         <div className="flex gap-6">
           <img
             src={currentHostVan.imageUrl}
@@ -33,17 +33,33 @@ export default function HostVanDetail() {
               {currentHostVan.type}
             </span>
             <h2 className="text-3xl font-semibold">{currentHostVan.name}</h2>
-            <span>
-              <b className="text-2xl font-normal">${currentHostVan.price}</b>{" "}
-              /day
+            <span className="text-xl">
+              <b className="text-2xl">${currentHostVan.price}</b> /day
             </span>
           </div>
         </div>
         <div className="flex gap-9">
-          <NavLink to="">Details</NavLink>
-          <NavLink to="">Pricing</NavLink>
-          <NavLink to="">Photos</NavLink>
+          <NavLink
+            to="."
+            end
+            className={({ isActive }) => (isActive ? "font-bold" : "")}
+          >
+            Details
+          </NavLink>
+          <NavLink
+            to="pricing"
+            className={({ isActive }) => (isActive ? "font-bold" : "")}
+          >
+            Pricing
+          </NavLink>
+          <NavLink
+            to="photos"
+            className={({ isActive }) => (isActive ? "font-bold" : "")}
+          >
+            Photos
+          </NavLink>
         </div>
+        <Outlet context={currentHostVan} />
       </div>
     </div>
   );
