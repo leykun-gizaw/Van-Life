@@ -15,6 +15,7 @@ import HostDashboard from "./pages/Host/HostDashboard";
 import HostIncome from "./pages/Host/HostIncome";
 import HostVans from "./pages/Host/HostVans";
 import HostReviews from "./pages/Host/HostReviews";
+import HostVanDetail from "./pages/Host/HostVanDetail";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route index element={<HostDashboard />} />
               <Route path="income" element={<HostIncome />} />
               <Route path="vans" element={<HostVans />} />
+              <Route path="vans/:id" element={<HostVanDetail />} />
               <Route path="reviews" element={<HostReviews />} />
             </Route>
           </Route>

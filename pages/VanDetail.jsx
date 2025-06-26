@@ -25,15 +25,7 @@ export default function VanDetail() {
       <div className="flex mt-12 p-[40px] gap-9 flex-col lg:flex-row ">
         <img src={currentVan.imageUrl} className="w-[600px]" />
         <div className="flex flex-col justify-between gap-12">
-          <span
-            className={clsx(
-              chooseTypeColor(currentVan.type),
-              "text-[#FFEAD0]",
-              "w-fit py-2",
-              "px-4",
-              "rounded-lg"
-            )}
-          >
+          <span className={chooseTypeColor(currentVan.type)}>
             {currentVan.type}
           </span>
           <h2 className="text-4xl font-semibold">{currentVan.name}</h2>

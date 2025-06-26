@@ -86,5 +86,11 @@ createServer({
     this.get("/host/vans", (schema, request) => {
       return schema.vans.where({ hostId: "123" });
     });
+
+    this.get("/host/vans/:id", (schema, request) => {
+      const id = request.params.id;
+
+      return schema.vans.findBy({ id, hostId: "123" });
+    });
   },
 });

@@ -26,17 +26,7 @@ export default function Vans() {
                 <b>${van.price}</b>/day
               </p>
             </div>
-            <span
-              className={clsx(
-                chooseTypeColor(van.type),
-                "text-[#FFEAD0]",
-                "w-fit py-2",
-                "px-4",
-                "rounded-lg"
-              )}
-            >
-              {van.type}
-            </span>
+            <span className={chooseTypeColor(van.type)}>{van.type}</span>
           </div>
         </Link>
       );
