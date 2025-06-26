@@ -18,9 +18,7 @@ export default function HostVanDetail() {
 
   return (
     <div className="flex flex-col gap-9">
-      <Link to=".." relative="path">
-        ← Back to all vans
-      </Link>
+      <Link to="../vans">← Back to all vans</Link>
       <div className="p-[40px] flex flex-col gap-9 bg-white max-w-[1000px]">
         <div className="flex gap-6">
           <img
