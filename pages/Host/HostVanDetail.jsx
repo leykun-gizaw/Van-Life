@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
-import chooseTypeColor from "../../utils/helpers";
+import clsx from "clsx";
+import Tag from "../../utils/components";
 
 export default function HostVanDetail() {
   const { id } = useParams();
@@ -27,9 +28,7 @@ export default function HostVanDetail() {
             className="rounded-md"
           />
           <div className="flex flex-col gap-3 justify-center">
-            <span className={`${chooseTypeColor(currentHostVan.type)}`}>
-              {currentHostVan.type}
-            </span>
+            <Tag name={currentHostVan.type} />
             <h2 className="text-3xl font-semibold">{currentHostVan.name}</h2>
             <span className="text-xl">
               <b className="text-2xl">${currentHostVan.price}</b> /day

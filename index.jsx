@@ -1,4 +1,4 @@
-import React from "react";
+import "./globals.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
