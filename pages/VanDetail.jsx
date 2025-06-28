@@ -7,8 +7,6 @@ export default function VanDetail() {
   const [currentVan, setCurrentVan] = React.useState(null);
   const location = useLocation();
 
-  console.log(location.state);
-
   React.useEffect(() => {
     fetch(`/api/vans/${id}`)
       .then((res) => res.json())
@@ -25,7 +23,7 @@ export default function VanDetail() {
         className="text-[#201F1D] text-lg"
       >
         {" "}
-        ← Back to all vans
+        ← Back to {location.state?.filterType || "all"} vans
       </Link>
       <div className="flex mt-12 p-[40px] gap-9 flex-col lg:flex-row ">
         <img src={currentVan.imageUrl} loading="lazy" className="w-[600px]" />
