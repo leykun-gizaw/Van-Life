@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import chooseTypeColor from "../utils/helpers";
+import { fetchVanById } from "../api/api";
 
 export default function VanDetail() {
   const { id } = useParams();
@@ -8,9 +9,10 @@ export default function VanDetail() {
   const location = useLocation();
 
   React.useEffect(() => {
-    fetch(`/api/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setCurrentVan(data.vans));
+    const getVanById = async (id) => {
+      setCurrentVan(await fetchVanById(id));
+    };
+    getVanById(id);
   }, []);
 
   if (!currentVan) return <h1>Loading...</h1>;
