@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import chooseTypeColor from "../utils/helpers";
@@ -13,7 +12,6 @@ export default function VanDetail() {
       .then((data) => setCurrentVan(data.vans));
   }, []);
 
-  console.log(currentVan);
   if (!currentVan) return <h1>Loading...</h1>;
 
   return (

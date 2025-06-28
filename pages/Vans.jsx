@@ -1,10 +1,15 @@
 import React from "react";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Tag from "../utils/components";
 
 export default function Vans() {
   const [vansList, setVanslist] = React.useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const validFilters = new Set(["simple", "rugged", "luxury"]);
+  const typ = searchParams.get("type");
+  const typeFilter = validFilters.has(typ) ? typ : null;
 
   React.useEffect(() => {
     fetch("/api/vans")
@@ -15,7 +20,11 @@ export default function Vans() {
   if (vansList.length === 0) {
     return <h1>Loading...</h1>;
   } else {
-    const vanElements = vansList.map((van) => {
+    const filteredVanElements = typeFilter
+      ? vansList.filter((van) => van.type === typeFilter)
+      : vansList;
+
+    const vanElements = filteredVanElements.map((van) => {
       return (
         <Link to={`${van.id}`} key={van.id}>
           <div className="flex flex-col gap-2">
@@ -31,13 +40,27 @@ export default function Vans() {
         </Link>
       );
     });
+
+    function handleFilter(key, value) {
+      const newSearchParams = new URLSearchParams(searchParams);
+      if (key && value !== null) {
+        newSearchParams.set(key, value);
+      } else if (value === null) {
+        newSearchParams.delete(key);
+      }
+      console.log(
+        "New search parameter being set: ",
+        newSearchParams.toString()
+      );
+      setSearchParams(newSearchParams);
+    }
     return (
       <div className="mb-12 p-[40px] flex flex-col gap-12">
         <h1 className="text-3xl">Explore our van options</h1>
         <div className="flex justify-between">
           <div className="flex w-3/4 gap-10">
             <button
-              to=""
+              onClick={() => handleFilter("type", "simple")}
               className={clsx(
                 "bg-[#FFEAD0]",
                 "py-2",
@@ -53,7 +76,7 @@ export default function Vans() {
               Simple
             </button>
             <button
-              to=""
+              onClick={() => handleFilter("type", "rugged")}
               className={clsx(
                 "bg-[#FFEAD0]",
                 "py-2",
@@ -69,7 +92,7 @@ export default function Vans() {
               Rugged
             </button>
             <button
-              to=""
+              onClick={() => handleFilter("type", "luxury")}
               className={clsx(
                 "bg-[#FFEAD0]",
                 "py-2",
@@ -85,7 +108,10 @@ export default function Vans() {
               Luxury
             </button>
           </div>
-          <button className="w-fit active:border-b-[#4D4D4D] cursor-pointer">
+          <button
+            className="w-fit active:border-b-[#4D4D4D] cursor-pointer hover:border-b p-0"
+            onClick={() => handleFilter("type", null)}
+          >
             Clear Filters
           </button>
         </div>
