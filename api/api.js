@@ -11,6 +11,13 @@ export async function fetchVans() {
 }
 
 export async function fetchVanById(id) {
-  const response = await fetch(`/api/vans/${id}`);
-  return (await response.json()).vans;
+  try {
+    const response = await fetch(`/api/vans/${id}`);
+    if (!response.ok) {
+      throw error;
+    }
+    return (await response.json()).vans;
+  } catch (err) {
+    throw err;
+  }
 }
