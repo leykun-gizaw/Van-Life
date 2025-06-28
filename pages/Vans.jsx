@@ -26,7 +26,11 @@ export default function Vans() {
 
     const vanElements = filteredVanElements.map((van) => {
       return (
-        <Link to={`${van.id}`} key={van.id}>
+        <Link
+          to={`${van.id}`}
+          key={van.id}
+          state={{ search: searchParams.toString() }}
+        >
           <div className="flex flex-col gap-2">
             <img src={van.imageUrl} width={"300px"} className="rounded-lg" />
             <div className="flex justify-between">
@@ -48,10 +52,6 @@ export default function Vans() {
       } else if (value === null) {
         newSearchParams.delete(key);
       }
-      console.log(
-        "New search parameter being set: ",
-        newSearchParams.toString()
-      );
       setSearchParams(newSearchParams);
     }
     return (

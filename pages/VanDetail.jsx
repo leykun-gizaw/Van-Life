@@ -1,10 +1,13 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import chooseTypeColor from "../utils/helpers";
 
 export default function VanDetail() {
   const { id } = useParams();
   const [currentVan, setCurrentVan] = React.useState(null);
+  const location = useLocation();
+
+  console.log(location.state);
 
   React.useEffect(() => {
     fetch(`/api/vans/${id}`)
@@ -16,12 +19,16 @@ export default function VanDetail() {
 
   return (
     <div className="p-[40px]">
-      <Link to=".." relative="path" className="text-[#201F1D] text-lg">
+      <Link
+        to={`..?${location.state?.search || ""}`}
+        relative="path"
+        className="text-[#201F1D] text-lg"
+      >
         {" "}
         ← Back to all vans
       </Link>
       <div className="flex mt-12 p-[40px] gap-9 flex-col lg:flex-row ">
-        <img src={currentVan.imageUrl} className="w-[600px]" />
+        <img src={currentVan.imageUrl} loading="lazy" className="w-[600px]" />
         <div className="flex flex-col justify-between gap-12">
           <span className={chooseTypeColor(currentVan.type)}>
             {currentVan.type}
