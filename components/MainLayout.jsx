@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
+import Footer from "./Footer";
 
-export default function Header() {
+export default function MainLayout() {
   return (
     <>
       <header className="p-[20px] flex justify-between border-b border-[#AAAAAA]">
@@ -26,9 +27,18 @@ export default function Header() {
           >
             Vans
           </NavLink>
+          <NavLink
+            to="login"
+            className={({ isActive }) => (isActive ? "font-bold" : "")}
+          >
+            Log In
+          </NavLink>
         </nav>
       </header>
-      <Outlet />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 }

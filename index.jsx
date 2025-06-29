@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Vans from "./pages/Vans";
-import Header from "./components/Header";
+import MainLayout from "./components/MainLayout";
 import Footer from "./components/Footer";
 
 import "./server";
@@ -20,34 +20,33 @@ import HostVanPricing from "./pages/Host/HostVanDetails/HostVanPricing";
 import HostVanPhotos from "./pages/Host/HostVanDetails/HostVanPhotos";
 import HostVanInfo from "./pages/Host/HostVanDetails/HostVanInfo";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/login";
 
 function App() {
   return (
     <BrowserRouter>
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Header />}>
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/vans" element={<Vans />} />
-            <Route path="/vans/:id" element={<VanDetail />} />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/vans" element={<Vans />} />
+          <Route path="/vans/:id" element={<VanDetail />} />
+          <Route path="login" element={<Login />} />
 
-            <Route path="host" element={<HostLayout />}>
-              <Route index element={<HostDashboard />} />
-              <Route path="income" element={<HostIncome />} />
-              <Route path="vans" element={<HostVans />} />
-              <Route path="vans/:id" element={<HostVanDetail />}>
-                <Route index element={<HostVanInfo />} />
-                <Route path="pricing" element={<HostVanPricing />} />
-                <Route path="photos" element={<HostVanPhotos />} />
-              </Route>
-              <Route path="reviews" element={<HostReviews />} />
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<HostDashboard />} />
+            <Route path="income" element={<HostIncome />} />
+            <Route path="vans" element={<HostVans />} />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />} />
+              <Route path="pricing" element={<HostVanPricing />} />
+              <Route path="photos" element={<HostVanPhotos />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
+            <Route path="reviews" element={<HostReviews />} />
           </Route>
-        </Routes>
-      </main>
-      <Footer />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
