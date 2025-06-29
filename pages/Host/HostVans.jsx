@@ -17,7 +17,7 @@ export default function HostVans() {
       {hostVans.map((hostVan) => {
         return (
           <Link to={`${hostVan.id}`} key={hostVan.id}>
-            <div className="flex items-center bg-white p-[15px] max-w-[600px] gap-9 rounded-lg">
+            <div className="flex items-center bg-white p-[15px] max-w-[800px] gap-9 rounded-lg">
               <img
                 src={hostVan.imageUrl}
                 width="100px"
