@@ -42,7 +42,7 @@ export default function Vans() {
         <Link
           to={`${van.id}`}
           key={van.id}
-          state={{ search: searchParams.toString(), filterType: van.type }}
+          state={{ search: searchParams.toString(), filterType: typeFilter }}
         >
           <div className="flex flex-col gap-2">
             <img src={van.imageUrl} width={"300px"} className="rounded-lg" />
