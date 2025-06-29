@@ -2,9 +2,12 @@ import React from "react";
 import clsx from "clsx";
 import { Link, useSearchParams } from "react-router-dom";
 import Tag from "../utils/components";
+import { fetchVans } from "../api/api";
 
 export default function Vans() {
   const [vansList, setVanslist] = React.useState([]);
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const validFilters = new Set(["simple", "rugged", "luxury"]);
@@ -12,13 +15,23 @@ export default function Vans() {
   const typeFilter = validFilters.has(typ) ? typ : null;
 
   React.useEffect(() => {
-    fetch("/api/vans")
-      .then((res) => res.json())
-      .then((data) => setVanslist(data.vans));
+    const getVans = async () => {
+      try {
+        setVanslist(await fetchVans());
+        setLoading(false);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getVans();
   }, []);
 
-  if (vansList.length === 0) {
-    return <h1>Loading...</h1>;
+  if (loading) {
+    return <h1 className="text-3xl">Loading...</h1>;
+  } else if (error) {
+    return <h1 className="text-2xl p-[20px]">Something Went Wrong</h1>;
   } else {
     const filteredVanElements = typeFilter
       ? vansList.filter((van) => van.type === typeFilter)
@@ -29,7 +42,7 @@ export default function Vans() {
         <Link
           to={`${van.id}`}
           key={van.id}
-          state={{ search: searchParams.toString(), filterType: van.type }}
+          state={{ search: searchParams.toString(), filterType: typeFilter }}
         >
           <div className="flex flex-col gap-2">
             <img src={van.imageUrl} width={"300px"} className="rounded-lg" />
