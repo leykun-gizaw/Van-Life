@@ -4,7 +4,7 @@ import Footer from "./Footer";
 export default function MainLayout() {
   return (
     <>
-      <header className="p-[20px] flex justify-between border-b border-[#AAAAAA]">
+      <header className="p-[20px] flex justify-between items-center border-b border-[#AAAAAA]">
         <Link className="text-3xl font-[900]" to="/">
           #VANLIFE
         </Link>
@@ -33,6 +33,9 @@ export default function MainLayout() {
           >
             Log In
           </NavLink>
+          <button onClick={() => localStorage.removeItem("loggedIn")}>
+            Log Out
+          </button>
         </nav>
       </header>
       <main className="flex flex-1">

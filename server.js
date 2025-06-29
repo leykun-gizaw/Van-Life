@@ -3,6 +3,7 @@ import { createServer, Model, Response } from "miragejs";
 createServer({
   models: {
     vans: Model,
+    users: Model,
   },
 
   seeds(server) {
@@ -69,6 +70,13 @@ createServer({
         "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
       type: "rugged",
     });
+
+    server.create("user", {
+      id: "123",
+      email: "b@b.com",
+      password: "p123",
+      name: "Bob",
+    });
   },
 
   routes() {
@@ -91,6 +99,19 @@ createServer({
       const id = request.params.id;
 
       return schema.vans.findBy({ id, hostId: "123" });
+    });
+
+    this.post("/login", (schema, request) => {
+      const { email, password } = JSON.parse(request.requestBody);
+
+      const user = schema.users.findBy({ email, password });
+
+      if (!user) {
+        return new Response(401, {}, { message: "User not found" });
+      }
+      user.password = null;
+
+      return { user, token: "enjoy, here's your token" };
     });
   },
 });

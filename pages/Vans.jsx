@@ -68,7 +68,7 @@ export default function Vans() {
       setSearchParams(newSearchParams);
     }
     return (
-      <div className="mb-12 p-[40px] flex flex-col gap-12">
+      <div className="mb-12 p-[40px] flex flex-col gap-12 w-full">
         <h1 className="text-3xl">Explore our van options</h1>
         <div className="flex justify-between">
           <div className="flex w-3/4 gap-10">
