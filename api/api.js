@@ -1,21 +1,23 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+const configObj = {
+  apiKey: import.meta.env.VITE_FB_API_KEY,
+  authDomain: import.meta.env.VITE_FB_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FB_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FB_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FB_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FB_APP_ID,
+};
+const app = initializeApp(configObj);
 
-const app = initializeApp({
-  apiKey: import.meta.env.FIREBASE_API_KEY,
-  authDomain: import.meta.env.FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.FIREBASE_APP_ID,
-});
+const db = getFirestore(app);
 
 export async function fetchVans() {
   try {
-    const response = await fetch("/api/vans");
-    if (!response.ok) {
-      throw error;
-    }
-    return (await response.json()).vans;
+    const vansCollection = collection(db, "vans");
+    const vansSnapshot = await getDocs(vansCollection);
+    const vansList = vansSnapshot.docs.map((doc) => doc.data());
+    return vansList;
   } catch (err) {
     throw err;
   }
