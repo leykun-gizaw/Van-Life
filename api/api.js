@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+} from "firebase/firestore/lite";
 const configObj = {
   apiKey: import.meta.env.VITE_FB_API_KEY,
   authDomain: import.meta.env.VITE_FB_AUTH_DOMAIN,
@@ -28,11 +34,9 @@ export async function fetchVans() {
 
 export async function fetchVanById(id) {
   try {
-    const response = await fetch(`/api/vans/${id}`);
-    if (!response.ok) {
-      throw error;
-    }
-    return (await response.json()).vans;
+    const docRef = doc(db, "vans", id);
+    const docSnap = await getDoc(docRef);
+    return { ...docSnap.data(), id: docSnap.id };
   } catch (err) {
     throw err;
   }
