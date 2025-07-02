@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { fetchHostVans } from "../../api/api";
 
 export default function HostVans() {
   const [hostVans, setHostVans] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("/api/host/vans")
-      .then((res) => res.json())
-      .then((data) => setHostVans(data.vans));
+    const getHostVans = async () => {
+      const hostVans = await fetchHostVans("123");
+      setHostVans(hostVans);
+    };
+    getHostVans();
   }, []);
 
   if (hostVans.length === 0) return <h1>Loading...</h1>;

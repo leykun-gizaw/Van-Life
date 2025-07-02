@@ -5,6 +5,9 @@ import {
   getDocs,
   getDoc,
   doc,
+  getAggregate,
+  query,
+  where,
 } from "firebase/firestore/lite";
 const configObj = {
   apiKey: import.meta.env.VITE_FB_API_KEY,
@@ -37,6 +40,20 @@ export async function fetchVanById(id) {
     const docRef = doc(db, "vans", id);
     const docSnap = await getDoc(docRef);
     return { ...docSnap.data(), id: docSnap.id };
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchHostVans(hostId) {
+  try {
+    const vansCollection = collection(db, "vans");
+    const qry = query(vansCollection, where("hostId", "==", hostId));
+    const hostVansSnapshot = await getDocs(qry);
+    return hostVansSnapshot.docs.map((doc) => {
+      const hostVan = { ...doc.data(), id: doc.id };
+      return hostVan;
+    });
   } catch (err) {
     throw err;
   }

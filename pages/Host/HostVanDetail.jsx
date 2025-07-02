@@ -2,17 +2,18 @@ import React from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import clsx from "clsx";
 import Tag from "../../utils/components";
+import { fetchVanById } from "../../api/api";
 
 export default function HostVanDetail() {
   const { id } = useParams();
   const [currentHostVan, setCurrentHostVan] = React.useState(null);
 
   React.useEffect(() => {
-    fetch(`/api/host/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentHostVan(data.vans);
-      });
+    const getHostVanById = async (hostId) => {
+      const hostVan = await fetchVanById(hostId);
+      setCurrentHostVan(hostVan);
+    };
+    getHostVanById(id);
   }, []);
 
   if (!currentHostVan) return <h1>Loading...</h1>;
