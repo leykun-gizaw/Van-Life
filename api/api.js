@@ -16,7 +16,10 @@ export async function fetchVans() {
   try {
     const vansCollection = collection(db, "vans");
     const vansSnapshot = await getDocs(vansCollection);
-    const vansList = vansSnapshot.docs.map((doc) => doc.data());
+    const vansList = vansSnapshot.docs.map((doc) => {
+      const van = { ...doc.data(), id: doc.id };
+      return van;
+    });
     return vansList;
   } catch (err) {
     throw err;
